@@ -1,5 +1,5 @@
 v1 = VideoReader('input.avi');
-v2 = VideoReader('temporal.avi');
+v2 = VideoReader('output.avi');
 
 f1 = im2double(read(v1));
 f2 = im2double(read(v2));
@@ -20,8 +20,8 @@ for i = 2 : size(f1,4)
     
     ann1 = nnmex(current_frame, prev_frame, 'cpu', [], [], [], [], [], [], 1);
     ann2 = nnmex(current_output, prev_output, 'cpu', [], [], [], [], [], [], 1);
-    dist(i) = dist(i) + sum(sum(((ann1(:,:,1) - ann2(:,:,1)).^2))); % ./ (ann1(:,:,1) + ann2(:,:,1))));
-    dist(i) = dist(i) + sum(sum(((ann1(:,:,2) - ann2(:,:,2)).^2))); % ./ (ann1(:,:,2) + ann2(:,:,2))));
+    dist(i) = dist(i) + sum(sum(((ann1(:,:,1) - ann2(:,:,1)).^2)));
+    dist(i) = dist(i) + sum(sum(((ann1(:,:,2) - ann2(:,:,2)).^2)));
     temp1 = im2double(votemex(prev_frame, ann1));
     temp2 = im2double(votemex(prev_output, ann2));
     temp3 = im2double(votemex(prev_output, ann1));

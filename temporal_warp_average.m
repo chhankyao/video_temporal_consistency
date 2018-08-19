@@ -1,9 +1,9 @@
 % Read Videos
-v = VideoReader('interview.mp4');
-frames = im2double(read(v, [41 90]));
+v = VideoReader('input.mp4');
+frames = im2double(read(v));
 
-v2 = VideoReader('interview_colorGrade_perframe.avi');
-frames2 = im2double(read(v2, [41 90]));
+v2 = VideoReader('processed.avi');
+frames2 = im2double(read(v2));
 
 output = zeros(size(frames));
 prev_frame = frames(:,:,:,1);
@@ -42,7 +42,7 @@ for i = 1 : size(frames, 4)
 end
 fprintf(repmat('\b',[1, length(verb)]))
 
-v = VideoWriter('interview_temporal_warp_average.avi');
+v = VideoWriter('average.avi');
 v.FrameRate = 10;
 open(v);
 writeVideo(v, output);
