@@ -1,9 +1,3 @@
-clear all;
-
-addpath(genpath('E:\hank\gbh_stream\code'));
-addpath(genpath('E:\hank\gbh_stream\results'));
-addpath(genpath('E:\hank\Downloads\OpticalFlow'));
-    
 % parameters for optical flow
 alpha = 0.012;
 ratio = 0.75;
@@ -13,10 +7,10 @@ nInnerFPIterations = 1;
 nSORIterations = 30;
 para = [alpha,ratio,minWidth,nOuterFPIterations,nInnerFPIterations,nSORIterations];
     
-v = VideoReader('Bear_input.avi');
+v = VideoReader('input.avi');
 frames = im2double(read(v));
 
-v2 = VideoReader('Bear_colorGrade_perframe.avi');
+v2 = VideoReader('processed.avi');
 frames2 = im2double(read(v2));
 
 d_stack = floor(size(frames,4)/10);
@@ -44,9 +38,6 @@ for i = 2 : size(frames,4)
     for j = 1 : min(i-1, d_stack)
         [vx, vy, imwarp] = Coarse2FineTwoFrames(ref, image_stack(:,:,:,j), para);
         ann_stack(:,:,:,j) = imwarp;
-%         ann_stack(:,:,1,j) = vx;
-%         ann_stack(:,:,2,j) = vy;
-%         ann_stack(:,:,3,j) = mean(imwarp - current_frame, 3);
     end
     
     % warping and fusion
@@ -86,8 +77,7 @@ fprintf(repmat('\b',[1, length(verb)]))
 output(output > 1) = 1;
 output(output < 0) = 0;
 
-v = VideoWriter('results\Bear_temporal2.avi');
-% v.FrameRate = 10;
+v = VideoWriter('output.avi');
 open(v);
 writeVideo(v, output);
 close(v);

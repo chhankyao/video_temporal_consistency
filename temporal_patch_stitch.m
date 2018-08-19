@@ -1,12 +1,7 @@
-clear all;
-
-addpath(genpath('E:\hank\gbh_stream\code'));
-addpath(genpath('E:\hank\gbh_stream\results'));
-
-v = VideoReader('Lily.avi');
+v = VideoReader('input.avi');
 frames = im2double(read(v));
 
-v2 = VideoReader('Lily_perframe.avi');
+v2 = VideoReader('processed.avi');
 frames2 = im2double(read(v2));
 
 d_stack = floor(size(frames,4)/10);
@@ -76,8 +71,7 @@ fprintf(repmat('\b',[1, length(verb)]))
 output(output > 1) = 1;
 output(output < 0) = 0;
 
-v = VideoWriter('results\Lily_temporal.avi');
-% v.FrameRate = 10;
+v = VideoWriter('temporal.avi');
 open(v);
 writeVideo(v, output);
 close(v);

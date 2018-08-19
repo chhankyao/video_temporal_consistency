@@ -1,6 +1,3 @@
-addpath(genpath('E:\hank\hank\gbh_stream\code'));
-addpath(genpath('E:\hank\hank\gbh_stream\interview'));
-
 % Read Videos
 v = VideoReader('interview.mp4');
 frames = im2double(read(v, [41 90]));

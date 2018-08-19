@@ -9,9 +9,7 @@ function output = affine_transfer_perframe(f, f_processed, label)
     g_processed = f_processed(:,:,2);
     b_processed = f_processed(:,:,3);
     output = zeros(size(f));
-%     output_r = zeros(numel(output(:,:,1)),1);
-%     output_g = zeros(numel(output(:,:,1)),1);
-%     output_b = zeros(numel(output(:,:,1)),1);
+
     m11 = zeros(size(r));
     m12 = zeros(size(r));
     m13 = zeros(size(r));
@@ -33,10 +31,6 @@ function output = affine_transfer_perframe(f, f_processed, label)
             m2 = [r_processed(label == i), g_processed(label == i), b_processed(label == i)]';
             t = m2*pinv(m1);
             m1_transfered = t*m1;
-
-%             output_r(label == i) = m1_transfered(1,:);
-%             output_g(label == i) = m1_transfered(2,:);
-%             output_b(label == i) = m1_transfered(3,:);
             m11(label == i) =  t(1,1);
             m12(label == i) =  t(1,2);
             m13(label == i) =  t(1,3);
@@ -66,7 +60,4 @@ function output = affine_transfer_perframe(f, f_processed, label)
     output(:,:,1) = m11_filtered .* r + m12_filtered .* g + m13_filtered .* b + m14_filtered .* ones(size(r));
     output(:,:,2) = m21_filtered .* r + m22_filtered .* g + m23_filtered .* b + m24_filtered .* ones(size(r));
     output(:,:,3) = m31_filtered .* r + m32_filtered .* g + m33_filtered .* b + m34_filtered .* ones(size(r));
-%     output(:,:,1) = reshape(output_r, size(output(:,:,1)));
-%     output(:,:,2) = reshape(output_g, size(output(:,:,1))); 
-%     output(:,:,3) = reshape(output_b, size(output(:,:,1)));
 end

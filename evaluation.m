@@ -1,10 +1,5 @@
-
-clear all;
-addpath(genpath('E:\hank\gbh_stream\code'));
-addpath(genpath('E:\hank\gbh_stream\results'));
-
-v1 = VideoReader('Bear_input.avi');
-v2 = VideoReader('Bear_temporal.avi');
+v1 = VideoReader('input.avi');
+v2 = VideoReader('temporal.avi');
 
 f1 = im2double(read(v1));
 f2 = im2double(read(v2));
